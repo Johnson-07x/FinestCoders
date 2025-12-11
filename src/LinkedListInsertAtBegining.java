@@ -9,18 +9,18 @@ class Node2{
     }
 }
 
-class operations{
+class operations2{
     Node2 head = null;
     Node2 tail = null;
     void insert(int n){
-        Node2 newNode = new Node2(n);
+        Node2 n2 = new Node2(n);
         if (head == null){
-            head = newNode;
-            tail = newNode;
+            head = n2;
+            tail = n2;
         }
         else {
-            newNode.next = head;
-            head = newNode;
+            n2.next = head;
+            head = n2;
         }
     }
 
@@ -42,7 +42,7 @@ public class LinkedListInsertAtBegining {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the LinkedList Size: ");
         int size = sc.nextInt();
-        operations ops = new operations();
+        operations2 ops = new operations2();
         for (int i = 0; i < size; i++){
             int n = sc.nextInt();
             ops.insert(n);
