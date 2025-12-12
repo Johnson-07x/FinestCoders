@@ -1,3 +1,5 @@
+package LinkedList;
+
 import java.util.Scanner;
 
 class Node3{
@@ -35,7 +37,7 @@ class operations3{
 
     void deleteAtPosition(int position){
         Node3 current = head;
-        for (int i = 1; i < position - 1; i++){
+        for (int i = 0; i < position - 1; i++){
             current = current.next;
         }
         current.next = current.next.next;
@@ -54,10 +56,10 @@ class operations3{
     }
 }
 
-public class LinkedListInsertAtPosition {
+public class InsertionAtThePosition {
     static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the LinkedList Size: ");
+        System.out.print("Enter the LinkedList.LinkedList Size: ");
         int size = sc.nextInt();
         operations3 op3 = new operations3();
         for (int i = 0; i < size; i++){

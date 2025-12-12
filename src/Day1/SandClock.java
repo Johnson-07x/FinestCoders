@@ -1,3 +1,5 @@
+package Day1;
+
 public class SandClock {
     public static void main(String[] args) {
         int n = 9;

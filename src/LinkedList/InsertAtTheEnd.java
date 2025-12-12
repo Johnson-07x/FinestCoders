@@ -1,31 +1,33 @@
+package LinkedList;
+
 import java.util.Scanner;
 
-class Node2{
+class Node{
     int data;
-    Node2 next;
-    Node2(int data){
+    Node next;
+    Node(int data){
         this.data = data;
         this.next = null;
     }
 }
 
-class operations2{
-    Node2 head = null;
-    Node2 tail = null;
+class operation{
+    Node head = null;
+    Node tail = null;
     void insert(int n){
-        Node2 n2 = new Node2(n);
+
+        Node nn = new Node(n);
         if (head == null){
-            head = n2;
-            tail = n2;
+            head = nn;
+            tail = nn;
         }
         else {
-            n2.next = head;
-            head = n2;
+            tail.next = nn;
+            tail = nn;
         }
     }
-
     void display(){
-        Node2 curr = head;
+        Node curr = head;
 
         while (curr != null){
             System.out.print(curr.data);
@@ -37,16 +39,16 @@ class operations2{
     }
 }
 
-public class LinkedListInsertAtBegining {
+public class InsertAtTheEnd {
     static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the LinkedList Size: ");
+        System.out.print("Enter the Linked List Size:");
         int size = sc.nextInt();
-        operations2 ops = new operations2();
+        operation op = new operation();
         for (int i = 0; i < size; i++){
             int n = sc.nextInt();
-            ops.insert(n);
+            op.insert(n);
         }
-        ops.display();
+        op.display();
     }
 }
