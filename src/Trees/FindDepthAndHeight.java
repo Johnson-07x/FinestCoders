@@ -73,7 +73,7 @@ class operations8{
 
 }
 
-public class FindDepthAndHeight {
+public class   FindDepthAndHeight {
     static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Tree size: ");
