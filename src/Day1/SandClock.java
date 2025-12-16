@@ -17,7 +17,7 @@ public class SandClock {
         int spaces = (max - stars) / 2;
 
         for (int i = 0; i < spaces; i++) {
-            System.out.print(" ");
+            System.out.print("  ");
         }
 
         for (int i = 0; i < stars; i++) {

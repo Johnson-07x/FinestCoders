@@ -2,75 +2,75 @@ package Graph;
 
 import java.util.*;
 
-class pair1{
-    int v, w;
-    pair1(int v, int w){
-        this.v = v;
-        this.w = w;
+class Edge {
+    int dest, wt;
+    Edge(int d, int w) {
+        dest = d;
+        wt = w;
     }
 }
 
 public class BellmanFord {
 
-    static void dijkstra(int src, List<List<pair1>> graph, int n){
-        int[] dis = new int[n];
-        Arrays.fill(dis, Integer.MAX_VALUE);
-        dis[src] = 0;
+    static void bellmanFord(List<List<Edge>> graph, int V, int src) {
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
 
-        pq.add(new int[]{0, src});
-
-        while (!pq.isEmpty()){
-            int cur[] = pq.poll();
-            int d = cur[0];
-            int u = cur[1];
-
-            for (int i = 0; i < n - 1; i++){
-            //Relaxation
-                for (pair1 g : graph.get(u)){
-                    int v = g.v;
-                    int w = g.w;
-                    if (dis[u] + w < dis[v]){
-                        dis[v] = dis[u] + w;
-                        pq.add(new int[]{dis[v], v});
+        // Step 1: Relax all edges V-1 times
+        for (int i = 1; i <= V - 1; i++) {//Run atmost of v-1 times
+            for (int u = 0; u < V; u++) {
+                for (Edge e : graph.get(u)) {//
+                    if (dist[u] != Integer.MAX_VALUE && dist[u] + e.wt < dist[e.dest]) {
+                        dist[e.dest] = dist[u] + e.wt;
                     }
                 }
             }
         }
 
-        // ✅ (GPT response) Print distances properly
-        System.out.println("Vertex\tDistance from Source " + src);
-        for (int i = 0; i < n; i++){
-            if (dis[i] == Integer.MAX_VALUE)
-                System.out.println(i + "\tINF");
-            else
-                System.out.println(i + "\t" + dis[i]);
+        // Step 2: Check for negative cycle
+        for (int u = 0; u < V; u++) {
+            for (Edge e : graph.get(u)) {
+                if (dist[u] + e.wt < dist[e.dest]) {
+                    System.out.println("Negative weight cycle detected!");
+                    return;
+                }
+            }
+        }
+
+        // Print result
+        System.out.println("Vertex\tDistance from Source");
+        for (int i = 0; i < V; i++) {
+            System.out.println(i + "\t\t" + dist[i]);
         }
     }
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the no.of Vertices: ");
-        int vertices = sc.nextInt();
+        int V = sc.nextInt();
         System.out.print("Enter the no.of Edges: ");
-        int edges = sc.nextInt();
+        int E = sc.nextInt();
 
-        List<List<pair1>> graph = new ArrayList<>();
+        List<List<Edge>> graph = new ArrayList<>();
 
-        for (int i = 0; i < vertices; i++){
+        for (int i = 0; i < V; i++) {
             graph.add(new ArrayList<>());
         }
 
-        for (int i = 0; i < edges; i++){
-            int u = sc.nextInt();
-            int v = sc.nextInt();
-            int w = sc.nextInt();
-            graph.get(u).add(new pair1(v, w));
-            graph.get(v).add(new pair1(u, w));
+
+        for (int i = 0; i < E; i++) {
+            int src = sc.nextInt();
+            int dest = sc.nextInt();
+            int wt = sc.nextInt();
+            graph.get(src).add(new Edge(dest, wt));
         }
-        System.out.print("Enter the Source: ");
+
+        System.out.print("Enter the Source Vertex: ");
         int src = sc.nextInt();
-        dijkstra(src, graph, edges);
+
+        bellmanFord(graph, V, src);
     }
 }
