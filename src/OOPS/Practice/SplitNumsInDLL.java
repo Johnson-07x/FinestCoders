@@ -28,8 +28,17 @@ class operations {
     void display() {
         Node curr = head;
         while (curr != null){
-
+            System.out.print(curr.data);
+            if (curr.next != null){
+                System.out.print(" -> ");
+            }
+            curr = curr.next;
         }
+        System.out.println();
+    }
+
+    void split() {
+
     }
 }
 
@@ -43,5 +52,6 @@ public class SplitNumsInDLL {
             int n = sc.nextInt();
             op.insert(n);
         }
+        op.display();
     }
 }
