@@ -13,14 +13,16 @@ public class SameSumValuePairs {
         }
         System.out.print("Enter (K) value: ");
         int k = sc.nextInt();
-        int sum = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (i==j) {
-                    System.out.print(arr[i]);
+                int sum = 0;
+                if (i != j) {
+                    sum += arr[i] + arr[j];
+                    if (sum == k) {
+                        System.out.println(arr[i] + " " + arr[j]);
+                    }
                 }
             }
-            System.out.println();
         }
     }
 }
