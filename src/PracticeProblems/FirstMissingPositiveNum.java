@@ -3,7 +3,7 @@ package PracticeProblems;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class check {
+class Check {
     public int minPositive (int[] arr) {
         Arrays.sort(arr);
         int check = 1;
@@ -11,7 +11,7 @@ public class check {
             if (arr[i] > 0) {
                 if (arr[i] == check) {
                     check++;
-                }else {
+                }else if (arr[i] > check){
                     return check;
                 }
             }
@@ -21,7 +21,7 @@ public class check {
 }
 
 public class FirstMissingPositiveNum {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter array size: ");
         int size = sc.nextInt();
@@ -29,7 +29,7 @@ public class FirstMissingPositiveNum {
         for (int i = 0; i < size; i++) {
             arr[i] = sc.nextInt();
         }
-        check c = new check();
+        Check c = new Check();
         System.out.println(c.minPositive(arr));
     }
 }
