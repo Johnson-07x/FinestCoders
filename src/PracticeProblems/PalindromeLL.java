@@ -90,7 +90,14 @@ class operations {
         Node curr2 = kHead;
         while (curr2 != null) {
             int e = s.pop();
-            if (curr2.data != e) {
+            int num = curr2.data;
+            int revNum = 0;
+            while (num != 0) {
+                int rem = num % 10;
+                revNum = (revNum * 10) + rem;
+                num /= 10;
+            }
+            if (curr2.data != e || curr2.data != revNum) {
                 System.out.println("This LinkedList is not a Palindrome");
                 return;
             }
