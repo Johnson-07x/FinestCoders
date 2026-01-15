@@ -18,22 +18,30 @@ class Operations2 {
     Node2 root = null;
 
     void insert(int data) {
-        root = insertRec(root, data);
-    }
+        Node2 n2 = new Node2(data);
 
-    Node2 insertRec(Node2 root, int data) {
         if (root == null) {
-            return new Node2(data);
+            root = n2;
+            return;
         }
 
-        if (data < root.data) {
-            root.left = insertRec(root.left, data);
-        } else if (data > root.data) {
-            root.right = insertRec(root.right, data);
+        Node2 curr = root;
+        Node2 parent = null;
+
+        while (curr != null) {
+            parent = curr;
+            if (data < curr.data)
+                curr = curr.left;
+            else
+                curr = curr.right;
         }
 
-        return root;
+        if (data < parent.data)
+            parent.left = n2;
+        else
+            parent.right = n2;
     }
+
 
     void inorder() {
         inorderRec(root);
@@ -64,40 +72,50 @@ class Operations2 {
     }
 
     void delete(int key) {
-        root = deleteRec(root, key);
+        Node2 curr = root;
+        Node2 parent = null;
+
+        // finding the node
+        while (curr != null && curr.data != key) {
+            parent = curr;
+            if (key < curr.data)
+                curr = curr.left;
+            else
+                curr = curr.right;
+        }
+
+        // edge case handled
+        if (curr == null) {
+            System.out.println("Key not found");
+            return;
+        }
+
+        // node with two children
+        if (curr.left != null && curr.right != null) {
+            Node2 succParent = curr;
+            Node2 succ = curr.right;
+
+            while (succ.left != null) {
+                succParent = succ;
+                succ = succ.left;
+            }
+
+            curr.data = succ.data;
+            curr = succ;
+            parent = succParent;
+        }
+
+        // node with 0 or 1 child
+        Node2 child = (curr.left != null) ? curr.left : curr.right;
+
+        if (parent == null)
+            root = child;
+        else if (parent.left == curr)
+            parent.left = child;
+        else
+            parent.right = child;
     }
 
-    Node2 deleteRec(Node2 root, int key) {
-        if (root == null) return null;
-
-        if (key < root.data) {
-            root.left = deleteRec(root.left, key);
-        }
-        else if (key > root.data) {
-            root.right = deleteRec(root.right, key);
-        }
-        else {
-            // if 1 or 0 child exists
-            if (root.left == null)
-                return root.right;
-            else if (root.right == null)
-                return root.left;
-
-            // if two child exists
-            root.data = minValue(root.right);
-            root.right = deleteRec(root.right, root.data);
-        }
-        return root;
-    }
-
-    int minValue(Node2 root) {
-        int min = root.data;
-        while (root.left != null) {
-            min = root.left.data;
-            root = root.left;
-        }
-        return min;
-    }
 }
 
 public class BinarySearchTreeDeletion {
