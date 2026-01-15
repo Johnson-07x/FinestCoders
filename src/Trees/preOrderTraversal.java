@@ -18,7 +18,7 @@ class Node5{
 class operations5{
     Node5 root;
     void insert(int[] arr){
-        if (arr[0] == -1 || arr.length == 0){
+        if (arr.length == 0 || arr[0] == -1 ){
             System.out.print("Tree is Not Created");
             return;
         }
@@ -36,7 +36,7 @@ class operations5{
             }
             i++;
 
-            if (i >= arr.length || !q.isEmpty()){
+            if (i >= arr.length || q.isEmpty()){
                 return;
             }
 
