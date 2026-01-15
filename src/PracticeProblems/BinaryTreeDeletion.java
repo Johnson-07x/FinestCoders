@@ -9,7 +9,7 @@ class Node1 {
     Node1 left, right = null;
     Node1(int data) {
         this.data = data;
-        this.left = this.right = null;
+        left = right = null;
     }
 }
 
@@ -146,8 +146,10 @@ public class BinaryTreeDeletion {
         operations1 op1 = new operations1();
         op1.insert(arr);
         op1.levelorder();
+
         System.out.print("Enter value to delete: ");
         int key = sc.nextInt();
+
         op1.delete(key);
         op1.levelorder();
     }
