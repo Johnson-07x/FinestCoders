@@ -2,27 +2,35 @@ package GFG;
 
 // User function Template for Java
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution6 {
     public int longestSubarray(int[] arr, int k) {
         // code here
-        int maxLen = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0, maxLen = 0;
+
+        map.put(0, -1); // VERY IMPORTANT line
+
         for (int i = 0; i < arr.length; i++) {
-            int sum = 0;
-            for (int j = i; j < arr.length; j++) {
-                sum += arr[j];
-                if (sum == k) {
-                    maxLen = Math.max(maxLen, j + i -1);
-                }
+            sum += arr[i];
+
+            if (map.containsKey(sum - k)) {
+                maxLen = Math.max(maxLen, i - map.get(sum - k));
             }
+
+            map.putIfAbsent(sum, i);
         }
+
         return maxLen;
     }
 }
 
 
 public class LongestSubarray {
-    static void main(String[] args) {
-        int[] arr = {10, 5, 2, 7, 1, -10};
+    public static void main(String[] args) {
+        int[] arr = {22, 41, 43, 1, 2, 3, 4, 5, 213, 13, 1};
         int k = 15;
         Solution6 s6 = new Solution6();
         System.out.println(s6.longestSubarray(arr, k));
